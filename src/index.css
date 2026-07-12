@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: #d13b3b;
+  --color-primary-dark: #9e2a2a;
+  --color-accent: #ff8a65;
+  --color-surface-light: #f7f8fa;
+  --color-surface-dark: #101216;
+  --color-nav-warm: #fdf0ed;
+  --color-nav-indicator: #f3ddd6;
+  --color-nav-fg: #5c4033;
+  --color-hero-1: #7a1828;
+  --color-hero-2: #c4323e;
+  --color-hero-3: #e2554a;
+  --color-hero-dark-1: #140a0c;
+  --color-hero-dark-2: #2a1218;
+  --color-hero-dark-3: #1a1014;
+
+  --ease-out-cubic: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply m-0 bg-surface-light font-sans font-medium text-[#1a1c1f] antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .hero-gradient {
+    background: linear-gradient(135deg, var(--color-hero-1) 0%, var(--color-hero-2) 48%, var(--color-hero-3) 100%);
+  }
+
+  .hero-dark-gradient {
+    background: linear-gradient(145deg, var(--color-hero-dark-1) 0%, var(--color-hero-dark-2) 50%, var(--color-hero-dark-3) 100%);
+  }
+
+  .grid-overlay {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .animate-breathe {
+    animation: breathe 2.2s var(--ease-out-cubic) infinite alternate;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(8%);
+    transition:
+      opacity 900ms var(--ease-out-cubic),
+      transform 900ms var(--ease-out-cubic);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes breathe {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.045);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .animate-breathe {
+    animation: none;
+  }
+}
